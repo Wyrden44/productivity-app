@@ -1,0 +1,19 @@
+@import 'tailwindcss';
+
+:root {
+    --color-app-bg: #ffffff;
+    --color-app-text: #1a1a1a;
+    --color-app-grey: #64748b; /* Slate 500 */
+}
+
+.dark {
+    --color-app-bg: #0f172a;
+    --color-app-text: #f8fafc;
+    --color-app-grey: #94a3b8; /* Slate 400 - slightly brighter for dark mode */
+}
+
+@theme {
+    --color-main-bg: var(--color-app-bg);
+    --color-main-text: var(--color-app-text);
+    --color-main-grey: var(--color-app-grey);
+}
