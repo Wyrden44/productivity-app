@@ -17,11 +17,13 @@ function addTodo(): void {
 </script>
 
 <template>
-    <div class="flex">
-        <BaseInput type="text" v-model="todo" class="mr-2" />
-        <BaseButton size="md" @click="addTodo"> Add </BaseButton>
-    </div>
-    <div class="todos">
-        <TodoList :todos="todos" />
-    </div>
+    <section class="day-view min-w-100">
+        <div class="flex border-b-2 border-main-border pb-3">
+            <BaseInput type="text" v-model="todo" class="mr-2" />
+            <BaseButton size="md" @click="addTodo"> Add </BaseButton>
+        </div>
+        <div class="todos">
+            <TodoList :todos="todos" />
+        </div>
+    </section>
 </template>

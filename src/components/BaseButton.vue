@@ -34,7 +34,7 @@ const sizeClasses = computed(() => {
 <template>
     <button
         :disabled="disabled || loading"
-        class="rounded-lg border-black border font-medium transition duration-150 cursor-pointer hover:bg-white hover:text-black"
+        class="rounded-lg border-black border-2 font-medium transition duration-150 cursor-pointer hover:bg-white hover:text-black"
         :class="[
             variantClasses,
             sizeClasses,

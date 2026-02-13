@@ -1,19 +1,28 @@
 @import 'tailwindcss';
 
 :root {
-    --color-app-bg: #ffffff;
-    --color-app-text: #1a1a1a;
-    --color-app-grey: #64748b; /* Slate 500 */
+    --color-app-bg: var(--color-slate-50);
+    --color-app-surface: var(--color-white);
+    --color-app-text: var(--color-slate-900);
+    --color-app-border: var(--color-slate-200);
+    --color-app-secondary-text: var(--color-slate-500);
+    --color-app-accent: var(--teal-600);
 }
 
 .dark {
-    --color-app-bg: #0f172a;
-    --color-app-text: #f8fafc;
-    --color-app-grey: #94a3b8; /* Slate 400 - slightly brighter for dark mode */
+    --color-app-bg: var(--color-slate-900);
+    --color-app-surface: var(--color-slate-900);
+    --color-app-text: var(--color-slate-100);
+    --color-app-border: var(--color-slate-700);
+    --color-app-secondary-text: var(--color-slate-400);
+    --color-app-accent: var(--teal-600);
 }
 
 @theme {
     --color-main-bg: var(--color-app-bg);
     --color-main-text: var(--color-app-text);
-    --color-main-grey: var(--color-app-grey);
+    --color-main-surface: var(--color-app-surface);
+    --color-main-border: var(--color-app-border);
+    --color-main-secondary-text: var(--color-app-secondary-text);
+    --color-main-accent: var(--color-app-accent);
 }
