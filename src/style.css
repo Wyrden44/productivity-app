@@ -6,7 +6,9 @@
     --color-app-text: var(--color-slate-900);
     --color-app-border: var(--color-slate-200);
     --color-app-secondary-text: var(--color-slate-500);
-    --color-app-accent: var(--teal-600);
+    --color-app-accent: var(--color-teal-600);
+    --color-app-valid: var(--color-emerald-600);
+    --color-app-error: var(--color-red-600);
 }
 
 .dark {
@@ -16,6 +18,8 @@
     --color-app-border: var(--color-slate-700);
     --color-app-secondary-text: var(--color-slate-400);
     --color-app-accent: var(--teal-600);
+    --color-app-valid: var(--color-emerald-600);
+    --color-app-error: var(--color-red-600);
 }
 
 @theme {
@@ -25,4 +29,6 @@
     --color-main-border: var(--color-app-border);
     --color-main-secondary-text: var(--color-app-secondary-text);
     --color-main-accent: var(--color-app-accent);
+    --color-main-valid: var(--color-app-valid);
+    --color-main-error: var(--color-app-error);
 }

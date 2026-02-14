@@ -27,7 +27,7 @@ const props = withDefaults(
 const tableVariantClasses = computed(() => {
     switch (props.variant) {
         default:
-            return 'divide-y divide-main-border'
+            return 'divide-y-2 divide-main-border'
     }
 })
 
@@ -41,7 +41,7 @@ const headVariantClasses = computed(() => {
 const bodyVariantClasses = computed(() => {
     switch (props.variant) {
         default:
-            return 'bg-main-bg'
+            return 'bg-main-bg divide-y divide-main-border'
     }
 })
 </script>
@@ -56,9 +56,9 @@ const bodyVariantClasses = computed(() => {
             </tr>
         </thead>
         <tbody :class="bodyVariantClasses">
-            <tr v-for="(row, index) in data" :key="index">
+            <tr v-for="(row, index) in props.data" :key="index">
                 <BaseTableCell v-for="col in columns" :key="col.key">
-                    <slot :name="`cell-${col.key}`" :value="row[col.key]"></slot>
+                    {{ row[col.key] }}
                 </BaseTableCell>
             </tr>
         </tbody>

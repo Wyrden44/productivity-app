@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import BaseButton from '@/components/BaseButton.vue'
 import BaseInput from '@/components/BaseInput.vue'
+import TimetableItem from '@/features/timetable/components/TimetableItem.vue'
 import TodoList from '@/features/todos/components/TodoList.vue'
 import { ref } from 'vue'
 
@@ -22,8 +23,7 @@ function addTodo(): void {
             <BaseInput type="text" v-model="todo" class="mr-2" />
             <BaseButton size="md" @click="addTodo"> Add </BaseButton>
         </div>
-        <div class="todos">
-            <TodoList :todos="todos" />
-        </div>
+        <TodoList :todos="todos" />
+        <TimetableItem />
     </section>
 </template>
