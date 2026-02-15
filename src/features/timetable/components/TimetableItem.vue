@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { onMounted } from 'vue'
-import BaseTable from '@/components/BaseTable.vue'
 import { useTimetableStore } from '../store/timetable.store'
 import BaseTableCell from '@/components/BaseTableCell.vue'
 import type { Activity } from '../types'
@@ -35,25 +34,30 @@ const validators: Record<keyof Activity, ValidatorFn> = {
 </script>
 
 <template>
-    <table class="divide-y-2 divide-main-border">
-        <thead class="bg-main-bg">
-            <tr>
-                <BaseTableCell v-for="col in cols" :key="col.key" :head="true">
-                    {{ col.head }}
-                </BaseTableCell>
-            </tr>
-        </thead>
-        <tbody class="bg-main-bg divide-y divide-main-border">
-            <tr v-for="activity in store.activities" :key="activity.id">
-                <EditableCell
-                    v-for="col in cols"
-                    :key="activity.id + '-' + col.key"
-                    :model-value="String(activity[col.key as keyof Activity])"
-                    :validator="validators[col.key as keyof Activity]"
-                    @commit="(val) => store.edit(activity.id, col.key as keyof Activity, val)"
-                />
-            </tr>
-        </tbody>
-    </table>
-    <BaseTable :columns="cols" :data="store.activities" />
+    <div class="w-full overflow-x-auto border border-main-border rounded-lg">
+        <table class="divide-y-2 divide-main-border">
+            <thead class="bg-main-bg">
+                <tr>
+                    <BaseTableCell v-for="col in cols" :key="col.key" :head="true">
+                        {{ col.head }}
+                    </BaseTableCell>
+                </tr>
+            </thead>
+            <tbody class="bg-main-bg divide-y divide-main-border">
+                <tr
+                    v-for="activity in store.activities"
+                    :key="activity.id"
+                    class="divide-x divide-main-border"
+                >
+                    <EditableCell
+                        v-for="col in cols"
+                        :key="activity.id + '-' + col.key"
+                        :model-value="String(activity[col.key as keyof Activity])"
+                        :validator="validators[col.key as keyof Activity]"
+                        @commit="(val) => store.edit(activity.id, col.key as keyof Activity, val)"
+                    />
+                </tr>
+            </tbody>
+        </table>
+    </div>
 </template>

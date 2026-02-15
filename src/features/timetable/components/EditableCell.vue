@@ -40,6 +40,7 @@ function commit() {
             @blur="commit"
             @keydown.enter="commit"
             :class="[validClasses]"
+            class="w-full min-w-[35px] max-w-[120px] md:max-w-[200px] lg:max-w-none bg-transparent"
         />
     </BaseTableCell>
 </template>
