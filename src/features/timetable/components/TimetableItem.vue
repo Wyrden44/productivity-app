@@ -47,7 +47,7 @@ const validators: Record<keyof Activity, ValidatorFn> = {
             <tr v-for="activity in store.activities" :key="activity.id">
                 <EditableCell
                     v-for="col in cols"
-                    :key="activity.id + '-' + activity[col.key as keyof Activity]"
+                    :key="activity.id + '-' + col.key"
                     :model-value="String(activity[col.key as keyof Activity])"
                     :validator="validators[col.key as keyof Activity]"
                     @commit="(val) => store.edit(activity.id, col.key as keyof Activity, val)"
