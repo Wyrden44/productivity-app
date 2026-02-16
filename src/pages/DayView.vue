@@ -19,11 +19,11 @@ function addTodo(): void {
 
 <template>
     <section class="day-view min-w-100">
-        <div class="flex border-b-2 border-main-border pb-3">
-            <BaseInput type="text" v-model="todo" class="mr-2" />
-            <BaseButton size="md" @click="addTodo"> Add </BaseButton>
-        </div>
-        <TodoList :todos="todos" />
+        <form @submit.prevent="addTodo" class="flex border-b-2 border-main-border pb-3">
+            <BaseInput type="text" v-model="todo" class="mr-2" placeholder="Todo..." />
+            <BaseButton size="md" @click="addTodo" type="submit"> Add </BaseButton>
+        </form>
+        <TodoList :todos="todos" class="mb-2" />
         <TimetableItem />
     </section>
 </template>
