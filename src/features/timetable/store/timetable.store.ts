@@ -18,6 +18,7 @@ export const useTimetableStore = defineStore('timetable', {
                 this.activities = await fetchActivities()
             } catch (e) {
                 this.error = 'Failed to fetch activities'
+                console.error(e)
             } finally {
                 this.loading = false
             }
@@ -46,6 +47,7 @@ export const useTimetableStore = defineStore('timetable', {
             try {
                 createActivity(activity)
             } catch (e) {
+                console.error(e)
                 this.error = 'Failed to create activity'
             } finally {
                 this.loading = false
