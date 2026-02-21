@@ -33,7 +33,7 @@ const validators: Record<keyof Activity, ValidatorFn> = {
 <template>
     <div class="w-full">
         <table
-            class="divide-y-2 divide-main-border overflow-x-auto border border-main-border rounded-lg"
+            class="w-full divide-y-2 divide-main-border overflow-x-auto border border-main-border rounded-lg"
         >
             <thead class="bg-main-bg">
                 <tr>
