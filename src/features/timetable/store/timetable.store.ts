@@ -1,10 +1,12 @@
 import { defineStore } from 'pinia'
 import type { Activity } from '../types'
-import { createActivity, editActivity, fetchActivities } from '../api/timetable.api'
+import { createActivity, editActivity, fetchActivities, removeActivity } from '../api/timetable.api'
+import { isValidActivity, isValidFocus, isValidTime } from '@/utils/validator'
 
 export const useTimetableStore = defineStore('timetable', {
     state: () => ({
         activities: [] as Activity[],
+        draftActivity: null as Activity | null, // used when adding new activity that are not filled out yet
         loading: false,
         error: null as string | null,
     }),
@@ -18,7 +20,6 @@ export const useTimetableStore = defineStore('timetable', {
                 this.activities = await fetchActivities()
             } catch (e) {
                 this.error = 'Failed to fetch activities'
-                console.error(e)
             } finally {
                 this.loading = false
             }
@@ -27,7 +28,10 @@ export const useTimetableStore = defineStore('timetable', {
         async edit<K extends keyof Activity>(id: number, key: K, value: Activity[K]) {
             const activity = this.activities.find((a) => a.id === id)
 
-            if (!activity) return
+            if (!activity) {
+                this.error = 'Activity could not be found'
+                return
+            }
 
             const old = activity[key]
             activity[key] = value
@@ -37,7 +41,6 @@ export const useTimetableStore = defineStore('timetable', {
                 await editActivity(id, key, value)
             } catch (e) {
                 activity[key] = old
-                console.log(this.activities)
                 console.error(e)
             }
         },
@@ -45,13 +48,77 @@ export const useTimetableStore = defineStore('timetable', {
         async add(activity: Activity) {
             this.loading = true
             try {
-                createActivity(activity)
+                const id = await createActivity(activity)
+                activity.id = id
             } catch (e) {
-                console.error(e)
                 this.error = 'Failed to create activity'
+                console.error(e)
             } finally {
                 this.loading = false
             }
+        },
+
+        async delete(id: Activity['id']) {
+            const activityIdx = this.activities.findIndex((a) => a.id === id)
+
+            if (activityIdx === -1) {
+                this.error = 'Activity could not be found'
+                return
+            }
+
+            const backup = this.activities[activityIdx]!
+
+            this.activities.splice(activityIdx, 1)
+
+            try {
+                await removeActivity(id)
+            } catch (e) {
+                this.activities.splice(activityIdx, 0, backup)
+                this.error = 'Failed to delete activity'
+            }
+        },
+
+        createDraft() {
+            if (this.draftActivity) return
+            this.draftActivity = {
+                id: 0,
+                startTime: '',
+                endTime: '',
+                activity: '',
+                focus: '',
+            }
+        },
+
+        async editDraft<K extends keyof Activity>(key: K, value: Activity[K]) {
+            if (!this.draftActivity) return
+            this.draftActivity[key] = value
+            await this.addDraft()
+        },
+
+        async addDraft() {
+            if (!this.draftActivity || !this.isDraftValid() || this.loading) return
+            this.loading = true
+            try {
+                await this.add(this.draftActivity)
+            } catch (e) {
+                console.error(e)
+            } finally {
+                this.loading = false
+                this.draftActivity = null
+            }
+        },
+
+        isDraftValid() {
+            return (
+                this.draftActivity?.startTime &&
+                this.draftActivity.endTime &&
+                this.draftActivity.focus &&
+                this.draftActivity.activity &&
+                isValidTime(this.draftActivity?.startTime) &&
+                isValidTime(this.draftActivity?.endTime) &&
+                isValidFocus(this.draftActivity?.focus) &&
+                isValidActivity(this.draftActivity?.activity)
+            )
         },
     },
 })

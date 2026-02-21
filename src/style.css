@@ -9,6 +9,7 @@
     --color-app-accent: var(--color-teal-600);
     --color-app-valid: var(--color-emerald-600);
     --color-app-error: var(--color-red-600);
+    --color-app-danger: var(--color-red-600);
 }
 
 .dark {
@@ -20,6 +21,7 @@
     --color-app-accent: var(--teal-600);
     --color-app-valid: var(--color-emerald-600);
     --color-app-error: var(--color-red-600);
+    --color-app-danger: var(--color-red-600);
 }
 
 @theme {
@@ -31,4 +33,5 @@
     --color-main-accent: var(--color-app-accent);
     --color-main-valid: var(--color-app-valid);
     --color-main-error: var(--color-app-error);
+    --color-main-danger: var(--color-app-danger);
 }
