@@ -5,8 +5,26 @@ import BaseTableCell from '@/components/BaseTableCell.vue'
 import type { Activity } from '../types'
 import EditableCell from './EditableCell.vue'
 import { isValidActivity, isValidFocus, isValidTime } from '@/utils/validator'
+import { ref, nextTick } from 'vue'
 
 const store = useTimetableStore()
+
+// used for auto-focus on first draft cell
+interface EditableCellExposed {
+    focus: () => void
+}
+const draftCells = ref<(EditableCellExposed | null)[]>([])
+
+const handleCreateDraft = async () => {
+    store.createDraft()
+
+    await nextTick()
+
+    // auto focus first cell
+    if (draftCells.value[0]) {
+        draftCells.value[0].focus()
+    }
+}
 
 onMounted(() => {
     store.load()
@@ -68,8 +86,13 @@ const validators: Record<keyof Activity, ValidatorFn> = {
                 </tr>
                 <tr v-if="store.draftActivity" class="divide-x divide-main-border">
                     <EditableCell
-                        v-for="col in cols"
+                        v-for="(col, index) in cols"
                         :key="'draft' + '-' + col.key"
+                        :ref="
+                            (el) => {
+                                if (el) draftCells[index] = el as any
+                            }
+                        "
                         :model-value="String(store.draftActivity[col.key as keyof Activity])"
                         :validator="validators[col.key as keyof Activity]"
                         :reset-on-invalidate="false"
@@ -79,7 +102,7 @@ const validators: Record<keyof Activity, ValidatorFn> = {
             </tbody>
         </table>
         <button
-            @click="store.createDraft()"
+            @click="handleCreateDraft"
             class="mt-2 w-full border-main-border bg-main-bg border cursor-pointer"
         >
             +
