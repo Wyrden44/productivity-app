@@ -15,7 +15,13 @@ const emit = defineEmits<{
     (e: 'commit', value: string): void
 }>()
 
+defineExpose({
+    focus: () => inputRef.value?.focus(),
+})
+
 const local = ref(props.modelValue)
+// input to focus
+const inputRef = ref<HTMLInputElement | null>(null)
 
 watch(
     () => props.modelValue,
@@ -39,6 +45,7 @@ function commit() {
 <template>
     <BaseTableCell>
         <input
+            ref="inputRef"
             type="text"
             v-model="local"
             @blur="commit"
