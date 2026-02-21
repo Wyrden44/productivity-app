@@ -8,7 +8,7 @@ const props = withDefaults(
         validator: (val: T) => boolean // validator logic as prop
         resetOnInvalidate?: boolean
     }>(),
-    { resetOnInvalidate: false },
+    { resetOnInvalidate: true },
 )
 
 const emit = defineEmits<{
