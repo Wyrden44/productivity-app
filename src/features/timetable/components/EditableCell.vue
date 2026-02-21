@@ -2,10 +2,14 @@
 import { ref, watch, computed } from 'vue'
 import BaseTableCell from '@/components/BaseTableCell.vue'
 
-const props = defineProps<{
-    modelValue: T
-    validator: (val: T) => boolean // validator logic as prop
-}>()
+const props = withDefaults(
+    defineProps<{
+        modelValue: T
+        validator: (val: T) => boolean // validator logic as prop
+        resetOnInvalidate?: boolean
+    }>(),
+    { resetOnInvalidate: false },
+)
 
 const emit = defineEmits<{
     (e: 'commit', value: string): void
@@ -26,7 +30,7 @@ const validClasses = computed(() =>
 function commit() {
     if (isValid.value) {
         emit('commit', local.value)
-    } else {
+    } else if (props.resetOnInvalidate) {
         local.value = props.modelValue
     }
 }

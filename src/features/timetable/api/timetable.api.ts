@@ -5,17 +5,19 @@ const activities: Activity[] = [
     { id: 2, startTime: '14:00', endTime: '15:00', activity: 'Study', focus: '9' },
 ]
 
+let currentId = 3
+
 export async function fetchActivities(): Promise<Activity[]> {
     return new Promise<Activity[]>((resolve) => {
         setTimeout(() => resolve(activities), 500)
     })
 }
 
-export async function createActivity(activity: Activity) {
+export async function createActivity(activity: Activity): Promise<number> {
     return new Promise((resolve) => {
         setTimeout(() => {
             activities.push(activity)
-            return resolve('success')
+            return resolve(currentId++)
         }, 500)
     })
 }
