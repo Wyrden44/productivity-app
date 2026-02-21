@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia'
 import type { Activity } from '../types'
-import { createActivity, editActivity, fetchActivities } from '../api/timetable.api'
+import { createActivity, editActivity, fetchActivities, removeActivity } from '../api/timetable.api'
 import { isValidActivity, isValidFocus, isValidTime } from '@/utils/validator'
 
 export const useTimetableStore = defineStore('timetable', {
@@ -28,7 +28,10 @@ export const useTimetableStore = defineStore('timetable', {
         async edit<K extends keyof Activity>(id: number, key: K, value: Activity[K]) {
             const activity = this.activities.find((a) => a.id === id)
 
-            if (!activity) return
+            if (!activity) {
+                this.error = 'Activity could not be found'
+                return
+            }
 
             const old = activity[key]
             activity[key] = value
@@ -52,6 +55,26 @@ export const useTimetableStore = defineStore('timetable', {
                 console.error(e)
             } finally {
                 this.loading = false
+            }
+        },
+
+        async delete(id: Activity['id']) {
+            const activityIdx = this.activities.findIndex((a) => a.id === id)
+
+            if (activityIdx === -1) {
+                this.error = 'Activity could not be found'
+                return
+            }
+
+            const backup = this.activities[activityIdx]!
+
+            this.activities.splice(activityIdx, 1)
+
+            try {
+                await removeActivity(id)
+            } catch (e) {
+                this.activities.splice(activityIdx, 0, backup)
+                this.error = 'Failed to delete activity'
             }
         },
 

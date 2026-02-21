@@ -37,3 +37,11 @@ export async function editActivity<K extends keyof Activity>(
         setTimeout(() => resolve('Activity updated'), 500)
     })
 }
+
+export async function removeActivity(id: Activity['id']) {
+    activities.filter((a) => a.id !== id)
+
+    return new Promise<string>((resolve) => {
+        setTimeout(() => resolve('Activity removed'), 500)
+    })
+}

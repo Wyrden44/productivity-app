@@ -46,7 +46,7 @@ const validators: Record<keyof Activity, ValidatorFn> = {
                 <tr
                     v-for="activity in store.activities"
                     :key="activity.id"
-                    class="divide-x divide-main-border"
+                    class="divide-x divide-main-border relative group"
                 >
                     <EditableCell
                         v-for="col in cols"
@@ -55,6 +55,16 @@ const validators: Record<keyof Activity, ValidatorFn> = {
                         :validator="validators[col.key as keyof Activity]"
                         @commit="(val) => store.edit(activity.id, col.key as keyof Activity, val)"
                     />
+                    <td
+                        class="invisible group-hover:visible text-main-danger absolute -translate-x-1/2 top-1/2 -translate-y-1/2"
+                    >
+                        <button
+                            class="cursor-pointer border border-main-text w-6 h-6 rounded-md bg-main-surface hover:border-main-danger"
+                            @click="store.delete(activity.id)"
+                        >
+                            -
+                        </button>
+                    </td>
                 </tr>
                 <tr v-if="store.draftActivity" class="divide-x divide-main-border">
                     <EditableCell
