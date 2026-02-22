@@ -10,6 +10,7 @@
     --color-app-valid: var(--color-emerald-600);
     --color-app-error: var(--color-red-600);
     --color-app-danger: var(--color-red-600);
+    --color-app-inactive: var(--color-slate-300);
 }
 
 .dark {
@@ -22,6 +23,7 @@
     --color-app-valid: var(--color-emerald-600);
     --color-app-error: var(--color-red-600);
     --color-app-danger: var(--color-red-600);
+    --color-app-inactive: var(--color-slate-300);
 }
 
 @theme {
@@ -34,4 +36,5 @@
     --color-main-valid: var(--color-app-valid);
     --color-main-error: var(--color-app-error);
     --color-main-danger: var(--color-app-danger);
+    --color-main-inactive: var(--color-app-inactive);
 }

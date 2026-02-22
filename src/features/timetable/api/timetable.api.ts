@@ -39,7 +39,8 @@ export async function editActivity<K extends keyof Activity>(
 }
 
 export async function removeActivity(id: Activity['id']) {
-    activities.filter((a) => a.id !== id)
+    const index = activities.findIndex((a) => a.id === id)
+    if (index !== -1) activities.splice(index, 1)
 
     return new Promise<string>((resolve) => {
         setTimeout(() => resolve('Activity removed'), 500)

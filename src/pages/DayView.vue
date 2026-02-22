@@ -3,27 +3,26 @@ import BaseButton from '@/components/BaseButton.vue'
 import BaseInput from '@/components/BaseInput.vue'
 import TimetableItem from '@/features/timetable/components/TimetableItem.vue'
 import TodoList from '@/features/todos/components/TodoList.vue'
-import { ref } from 'vue'
+import { useTodoListStore } from '@/features/todos/store/todolist.store'
+import { storeToRefs } from 'pinia'
+import { onMounted } from 'vue'
 
-const id = ref<number>(0)
-const todo = ref<string>('')
-const todos = ref<{ text: string; done: boolean; id: number }[]>([])
+const todoStore = useTodoListStore()
 
-function addTodo(): void {
-    if (todo.value) {
-        todos.value.push({ text: todo.value, done: false, id: id.value++ })
-        todo.value = ''
-    }
-}
+const { todo } = storeToRefs(todoStore)
+
+onMounted(() => {
+    todoStore.load()
+})
 </script>
 
 <template>
     <section class="day-view min-w-100">
-        <form @submit.prevent="addTodo" class="flex border-b-2 border-main-border pb-3">
+        <form @submit.prevent="todoStore.addDraft" class="flex border-b-2 border-main-border pb-3">
             <BaseInput type="text" v-model="todo" class="mr-2" placeholder="Todo..." />
-            <BaseButton size="md" @click="addTodo" type="submit"> Add </BaseButton>
+            <BaseButton size="md" type="submit">Add</BaseButton>
         </form>
-        <TodoList :todos="todos" class="mb-2" />
+        <TodoList :todos="todoStore.todos" class="mb-2" />
         <TimetableItem />
     </section>
 </template>

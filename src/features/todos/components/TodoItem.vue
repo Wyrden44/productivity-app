@@ -9,6 +9,6 @@ const props = defineProps<{
 
 <template>
     <div class="todo">
-        <BaseCheckbox id="todo" :label="props.todo.text" :checked="props.todo.done" />
+        <BaseCheckbox :id="String(todo.id)" :label="props.todo.text" :checked="props.todo.done" />
     </div>
 </template>
