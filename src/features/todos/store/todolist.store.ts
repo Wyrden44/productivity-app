@@ -104,5 +104,25 @@ export const useTodoListStore = defineStore('todolist', {
                 this.loading = false
             }
         },
+
+        async deleteDone() {
+            if (this.loading) return
+            this.loading = true
+
+            const doneTodos = this.todos.filter((t) => t.done)
+            const backup = [...doneTodos]
+
+            this.todos = this.todos.filter((t) => !t.done)
+
+            try {
+                await Promise.all(doneTodos.map((t) => removeTodo(t.id)))
+            } catch (e) {
+                console.error(e)
+                this.todos.push(...backup)
+                this.error = 'Failed to delete completed todos'
+            } finally {
+                this.loading = false
+            }
+        },
     },
 })
