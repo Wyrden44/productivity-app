@@ -11,18 +11,18 @@ const props = defineProps<{
 const variantClasses = computed(() => {
     switch (props.variant) {
         case 'secondary':
-            return 'bg-gray-200 text-black hover:bg-gray-300'
+            return 'bg-gray-200 text-black hover:bg-gray-300 hover-text-main-text'
         case 'danger':
-            return 'bg-red-600 text-white hover:bg-red-700'
+            return 'bg-main-surface text-main-danger hover:bg-main-danger hover:text-main-text hover:border-main-text border-main-danger'
         default:
-            return 'bg-black text-white hover:bg-gray-800'
+            return 'bg-black text-white hover:bg-main-surface hover:text-main-text'
     }
 })
 
 const sizeClasses = computed(() => {
     switch (props.size) {
         case 'sm':
-            return 'px-3 py-1 text-sm'
+            return 'px-2 py-1 text-sm'
         case 'lg':
             return 'px-6 py-3 text-lg'
         default:
@@ -34,7 +34,7 @@ const sizeClasses = computed(() => {
 <template>
     <button
         :disabled="disabled || loading"
-        class="rounded-lg border-black border-2 font-medium transition duration-150 cursor-pointer hover:bg-white hover:text-black"
+        class="rounded-lg border-black border-2 font-medium transition duration-150 cursor-pointer"
         :class="[
             variantClasses,
             sizeClasses,

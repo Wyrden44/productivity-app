@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed } from 'vue'
+import { computed, ref } from 'vue'
 
 const props = withDefaults(
     defineProps<{
@@ -17,6 +17,17 @@ const props = withDefaults(
         checkedCross: true,
     },
 )
+
+const checked = ref(props.checked)
+
+const emit = defineEmits<{
+    (e: 'check', value: boolean): void
+}>()
+
+function onChange(e: Event) {
+    const target = e.target as HTMLInputElement
+    emit('check', target.checked)
+}
 
 const colorClasses = computed(() => {
     switch (props.color) {
@@ -45,9 +56,10 @@ const sizeClasses = computed(() => {
             <input
                 type="checkbox"
                 :id="props.id"
-                :checked="props.checked"
+                :checked="checked"
                 class="peer appearance-none border-2 border-main-text rounded-sm bg-white focus:outline-none cursor-pointer focus:ring-1 focus:ring-blue-100"
                 :class="[colorClasses, sizeClasses]"
+                @change="onChange"
             />
 
             <svg
