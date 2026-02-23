@@ -20,6 +20,7 @@ export const useTimetableStore = defineStore('timetable', {
                 this.activities = await timetableRepository.getAll()
             } catch (e) {
                 this.error = 'Failed to fetch activities'
+                console.error(e)
             } finally {
                 this.loading = false
             }
@@ -78,6 +79,7 @@ export const useTimetableStore = defineStore('timetable', {
             } catch (e) {
                 this.activities.splice(activityIdx, 0, backup)
                 this.error = 'Failed to delete activity'
+                throw e
             }
         },
 

@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia'
 import type { Todo } from '../types/todo.model'
-import { toDomain, todoRepository } from '../todoRepository'
+import { todoRepository } from '../todoRepository'
 
 export const useTodoListStore = defineStore('todolist', {
     state: () => ({
@@ -83,6 +83,7 @@ export const useTodoListStore = defineStore('todolist', {
             } catch (e) {
                 this.todos.splice(activityIdx, 0, backup)
                 this.error = 'Failed to delete todo'
+                throw e
             }
         },
 

@@ -1,6 +1,6 @@
-import { db } from '@/db/database'
+import { syncActivities } from '@/features/timetable/sync/timetableSync'
 import { syncTodos } from '@/features/todos/sync/todoSync'
 
 export async function syncAllUnsynced() {
-    await Promise.all([syncTodos()])
+    return Promise.all([syncTodos(), syncActivities()])
 }
