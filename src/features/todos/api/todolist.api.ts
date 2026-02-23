@@ -1,4 +1,4 @@
-import type { Todo } from '../types'
+import type { Todo } from '../types/todo.model'
 
 const todos: Todo[] = [
     { done: false, text: 'Test Todo', id: 0 },

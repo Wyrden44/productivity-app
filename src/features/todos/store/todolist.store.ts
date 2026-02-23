@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia'
-import type { Todo } from '../types'
-import { createTodo, editTodo, fetchTodos, removeTodo } from '../api/todolist.api'
+import type { Todo } from '../types/todo.model'
+import { toDomain, todoRepository } from '../todoRepository'
 
 export const useTodoListStore = defineStore('todolist', {
     state: () => ({
@@ -21,7 +21,7 @@ export const useTodoListStore = defineStore('todolist', {
         async load() {
             this.loading = true
             try {
-                this.todos = await fetchTodos()
+                this.todos = await todoRepository.getAll()
             } catch (e) {
                 console.error(e)
                 this.error = 'Failed to fetch todos'
@@ -43,7 +43,7 @@ export const useTodoListStore = defineStore('todolist', {
 
             try {
                 // api call
-                await editTodo(id, key, value)
+                await todoRepository.update(id, key, value)
             } catch (e) {
                 todo[key] = old
                 console.error(e)
@@ -51,22 +51,20 @@ export const useTodoListStore = defineStore('todolist', {
         },
 
         async add(todo: Todo) {
-            console.log(this.todos)
             this.loading = true
             this.todos.push(todo)
 
             try {
-                const id = await createTodo(todo)
+                const id = await todoRepository.add(todo)
                 todo.id = id
             } catch (e) {
-                const index = this.todos.findIndex((t) => t === todo)
+                const index = this.todos.findIndex((t) => t.id === todo.id && t.text === todo.text)
                 if (index !== -1) this.todos.splice(index, 1)
                 this.error = 'Failed to create todo'
                 throw e
             } finally {
                 this.loading = false
             }
-            console.log(this.todos)
         },
 
         async delete(id: Todo['id']) {
@@ -82,7 +80,7 @@ export const useTodoListStore = defineStore('todolist', {
             this.todos.splice(activityIdx, 1)
 
             try {
-                await removeTodo(id)
+                await todoRepository.delete(id)
             } catch (e) {
                 this.todos.splice(activityIdx, 0, backup)
                 this.error = 'Failed to delete todo'
@@ -92,7 +90,7 @@ export const useTodoListStore = defineStore('todolist', {
         async addDraft() {
             if (!this.todo || this.loading) return
             this.loading = true
-            const todo = { id: 0, done: false, text: this.todo }
+            const todo = { done: false, text: this.todo } as Todo
             this.todo = ''
 
             try {
@@ -110,15 +108,11 @@ export const useTodoListStore = defineStore('todolist', {
             this.loading = true
 
             const doneTodos = this.todos.filter((t) => t.done)
-            const backup = [...doneTodos]
-
-            this.todos = this.todos.filter((t) => !t.done)
 
             try {
-                await Promise.all(doneTodos.map((t) => removeTodo(t.id)))
+                await Promise.all(doneTodos.map((t) => this.delete(t.id)))
             } catch (e) {
                 console.error(e)
-                this.todos.push(...backup)
                 this.error = 'Failed to delete completed todos'
             } finally {
                 this.loading = false
