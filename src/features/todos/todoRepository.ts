@@ -26,21 +26,23 @@ export const todoRepository: TodoRepository = {
     },
 
     async add(todo) {
-        const id = await db.todos.add(toDB(todo))
-        return id
+        await db.todos.add(toDB(todo))
     },
 
     async update(id, key, val) {
-        await db.todos.update(id, {
-            [key]: val,
-            updatedAt: Date.now(),
-            synced: 0,
-        })
+        await db.todos
+            .where('id')
+            .equals(id)
+            .modify({
+                [key]: val,
+                updatedAt: Date.now(),
+                synced: 0,
+            })
     },
 
     async delete(id) {
-        await db.todos.update(id, {
-            deleted: true,
+        await db.todos.where('id').equals(id).modify({
+            deleted: 1,
             updatedAt: Date.now(),
             synced: 0,
         })

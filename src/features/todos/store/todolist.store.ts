@@ -30,7 +30,7 @@ export const useTodoListStore = defineStore('todolist', {
             }
         },
 
-        async edit<K extends keyof Todo>(id: number, key: K, value: Todo[K]) {
+        async edit<K extends keyof Todo>(id: string, key: K, value: Todo[K]) {
             const todo = this.todos.find((a) => a.id === id)
 
             if (!todo) {
@@ -55,10 +55,9 @@ export const useTodoListStore = defineStore('todolist', {
             this.todos.push(todo)
 
             try {
-                const id = await todoRepository.add(todo)
-                todo.id = id
+                await todoRepository.add(todo)
             } catch (e) {
-                const index = this.todos.findIndex((t) => t.id === todo.id && t.text === todo.text)
+                const index = this.todos.findIndex((t) => t.id === todo.id)
                 if (index !== -1) this.todos.splice(index, 1)
                 this.error = 'Failed to create todo'
                 throw e
@@ -90,7 +89,7 @@ export const useTodoListStore = defineStore('todolist', {
         async addDraft() {
             if (!this.todo || this.loading) return
             this.loading = true
-            const todo = { done: false, text: this.todo } as Todo
+            const todo = { id: crypto.randomUUID(), done: false, text: this.todo } as Todo
             this.todo = ''
 
             try {

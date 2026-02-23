@@ -28,7 +28,7 @@ const date = computed(() => getDateDayMonth(new Date()))
             <BaseBurger v-model="menuOpen" size="md" />
             <div
                 v-if="menuOpen"
-                class="absolute right-0 top-10 bg-main-bg shadow-md p-3 flex flex-col border-1 z-10 gap-4 rounded-md min-w-55"
+                class="absolute right-0 top-10 bg-main-bg shadow-md p-3 flex flex-col border z-10 gap-4 rounded-md min-w-55"
                 @mouseleave="closeMenu"
             >
                 <BaseToggle label="Hide done" v-model="hideDone" />
