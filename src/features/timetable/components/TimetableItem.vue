@@ -41,6 +41,7 @@ type ValidatorFn = (val: string) => boolean
 
 const validators: Record<keyof Activity, ValidatorFn> = {
     id: () => true, // or whatever your Activity keys are
+    pk: () => true,
     startTime: (val) => isValidTime(String(val)),
     endTime: (val) => isValidTime(String(val)),
     activity: (val) => isValidActivity(String(val)),

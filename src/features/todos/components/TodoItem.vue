@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import BaseCheckbox from '@/components/BaseCheckbox.vue'
-import type { Todo } from '../types'
+import type { Todo } from '../types/todo.model'
 
 const props = defineProps<{
     todo: Todo
