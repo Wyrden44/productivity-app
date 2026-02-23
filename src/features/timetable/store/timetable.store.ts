@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia'
-import type { Activity } from '../types'
-import { createActivity, editActivity, fetchActivities, removeActivity } from '../api/timetable.api'
+import type { Activity } from '../types/activity.model'
 import { isValidActivity, isValidFocus, isValidTime } from '@/utils/validator'
+import { timetableRepository } from '../timetableRepository'
 
 export const useTimetableStore = defineStore('timetable', {
     state: () => ({
@@ -17,15 +17,16 @@ export const useTimetableStore = defineStore('timetable', {
         async load() {
             this.loading = true
             try {
-                this.activities = await fetchActivities()
+                this.activities = await timetableRepository.getAll()
             } catch (e) {
                 this.error = 'Failed to fetch activities'
+                console.error(e)
             } finally {
                 this.loading = false
             }
         },
 
-        async edit<K extends keyof Activity>(id: number, key: K, value: Activity[K]) {
+        async edit<K extends keyof Activity>(id: Activity['id'], key: K, value: Activity[K]) {
             const activity = this.activities.find((a) => a.id === id)
 
             if (!activity) {
@@ -38,7 +39,7 @@ export const useTimetableStore = defineStore('timetable', {
 
             try {
                 // api call
-                await editActivity(id, key, value)
+                await timetableRepository.update(id, key, value)
             } catch (e) {
                 activity[key] = old
                 console.error(e)
@@ -47,12 +48,15 @@ export const useTimetableStore = defineStore('timetable', {
 
         async add(activity: Activity) {
             this.loading = true
+            this.activities.push(activity)
+
             try {
-                const id = await createActivity(activity)
-                activity.id = id
+                await timetableRepository.add(activity)
             } catch (e) {
+                const index = this.activities.findIndex((a) => a.id === activity.id)
+                this.activities.splice(index, 1)
                 this.error = 'Failed to create activity'
-                console.error(e)
+                throw e
             } finally {
                 this.loading = false
             }
@@ -71,17 +75,18 @@ export const useTimetableStore = defineStore('timetable', {
             this.activities.splice(activityIdx, 1)
 
             try {
-                await removeActivity(id)
+                await timetableRepository.delete(id)
             } catch (e) {
                 this.activities.splice(activityIdx, 0, backup)
                 this.error = 'Failed to delete activity'
+                throw e
             }
         },
 
         createDraft() {
             if (this.draftActivity) return
             this.draftActivity = {
-                id: 0,
+                id: crypto.randomUUID(),
                 startTime: '',
                 endTime: '',
                 activity: '',
@@ -98,13 +103,16 @@ export const useTimetableStore = defineStore('timetable', {
         async addDraft() {
             if (!this.draftActivity || !this.isDraftValid() || this.loading) return
             this.loading = true
+            const draft = { ...this.draftActivity }
+            this.draftActivity = null
+
             try {
-                await this.add(this.draftActivity)
+                await this.add(draft)
             } catch (e) {
                 console.error(e)
+                this.draftActivity = draft
             } finally {
                 this.loading = false
-                this.draftActivity = null
             }
         },
 

@@ -1,5 +1,6 @@
 export interface Activity {
-    id: number
+    id: string
+    pk?: number
     startTime: string
     endTime: string
     activity: string

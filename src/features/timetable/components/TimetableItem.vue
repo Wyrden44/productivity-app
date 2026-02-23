@@ -2,7 +2,7 @@
 import { onMounted } from 'vue'
 import { useTimetableStore } from '../store/timetable.store'
 import BaseTableCell from '@/components/BaseTableCell.vue'
-import type { Activity } from '../types'
+import type { Activity } from '../types/activity.model'
 import EditableCell from './EditableCell.vue'
 import { isValidActivity, isValidFocus, isValidTime } from '@/utils/validator'
 import { ref, nextTick } from 'vue'
@@ -41,6 +41,7 @@ type ValidatorFn = (val: string) => boolean
 
 const validators: Record<keyof Activity, ValidatorFn> = {
     id: () => true, // or whatever your Activity keys are
+    pk: () => true,
     startTime: (val) => isValidTime(String(val)),
     endTime: (val) => isValidTime(String(val)),
     activity: (val) => isValidActivity(String(val)),
