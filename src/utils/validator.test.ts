@@ -14,6 +14,14 @@ describe('Time Validator', () => {
         expect(isValidTime('09:05')).toBe(true)
     })
 
+    it('identifies 1:05 as valid', () => {
+        expect(isValidTime('09:05')).toBe(true)
+    })
+
+    it('identifies 9:05 as valid', () => {
+        expect(isValidTime('09:05')).toBe(true)
+    })
+
     it('identifies 20:00 as valid', () => {
         expect(isValidTime('20:00')).toBe(true)
     })
@@ -36,5 +44,9 @@ describe('Time Validator', () => {
 
     it('rejects non-numeric input', () => {
         expect(isValidTime('ab:cd')).toBe(false)
+    })
+
+    it('identifies 009:00 as invalid', () => {
+        expect(isValidTime('009:00')).toBe(false)
     })
 })
