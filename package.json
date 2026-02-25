@@ -24,6 +24,7 @@
         "vue": "^3.5.27"
     },
     "devDependencies": {
+        "@pinia/testing": "^1.0.3",
         "@tsconfig/node24": "^24.0.4",
         "@types/node": "^24.10.9",
         "@vitejs/plugin-vue": "^6.0.4",
