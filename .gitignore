@@ -37,3 +37,9 @@ __screenshots__/
 
 # Vite
 *.timestamp-*-*.mjs
+
+
+
+.nx/cache
+.nx/workspace-data
+vite.config.*.timestamp*
