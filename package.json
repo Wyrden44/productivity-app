@@ -13,7 +13,8 @@
         "lint:oxlint": "oxlint . --fix",
         "lint:eslint": "eslint . --fix --cache",
         "format": "prettier --write --experimental-cli src/",
-        "test:unit": "vitest"
+        "test": "vitest",
+        "test:watch": "vitest --watch"
     },
     "dependencies": {
         "@tailwindcss/vite": "^4.1.18",
@@ -23,6 +24,7 @@
         "vue": "^3.5.27"
     },
     "devDependencies": {
+        "@pinia/testing": "^1.0.3",
         "@tsconfig/node24": "^24.0.4",
         "@types/node": "^24.10.9",
         "@vitejs/plugin-vue": "^6.0.4",
@@ -34,8 +36,9 @@
         "eslint-config-prettier": "^10.1.8",
         "eslint-plugin-oxlint": "~1.42.0",
         "eslint-plugin-vue": "~10.7.0",
+        "fake-indexeddb": "^6.2.5",
         "jiti": "^2.6.1",
-        "jsdom": "^28.0.0",
+        "jsdom": "^28.1.0",
         "npm-run-all2": "^8.0.4",
         "oxlint": "~1.42.0",
         "postcss": "^8.5.6",

@@ -22,10 +22,7 @@ export default defineConfig({
         },
     },
     test: {
-        // This enables globals like 'describe', 'it', and 'expect'
-        // so you don't have to import them in every test file
         globals: true,
-        // Simulates a browser environment
         environment: 'jsdom',
     },
 })

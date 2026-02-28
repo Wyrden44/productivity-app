@@ -9,5 +9,6 @@ export const db = new Dexie('app') as Dexie & {
 
 db.version(1).stores({
     todos: '++pk, id, text, done, updatedAt, synced, deleted',
-    activities: '++pk, id, title, description, date, updatedAt, synced, deleted',
+    activities:
+        '++pk, id, title, description, date, startTime, endTime, updatedAt, synced, deleted',
 })

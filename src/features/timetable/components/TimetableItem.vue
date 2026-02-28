@@ -104,7 +104,7 @@ const validators: Record<keyof Activity, ValidatorFn> = {
         </table>
         <button
             @click="handleCreateDraft"
-            class="mt-2 w-full border-main-border bg-main-bg border cursor-pointer"
+            class="add-draft mt-2 w-full border-main-border bg-main-bg border cursor-pointer"
         >
             +
         </button>
