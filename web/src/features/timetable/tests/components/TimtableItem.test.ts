@@ -1,5 +1,5 @@
-import { mount } from '@vue/test-utils'
-import { createTestingPinia } from '@pinia/testing'
+import { mount } from '@web/vue/test-utils'
+import { createTestingPinia } from '@web/pinia/testing'
 import { useTimetableStore } from '../../store/timetable.store'
 import TimetableItem from '../../components/TimetableItem.vue'
 import { nextTick } from 'vue'

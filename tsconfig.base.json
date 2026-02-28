@@ -1,10 +1,13 @@
 {
-    "compileOnSave": false,
     "compilerOptions": {
         "baseUrl": ".",
         "module": "esnext",
         "moduleResolution": "bundler",
         "target": "esnext",
-        "lib": ["ESNext", "DOM"]
+        "lib": ["ESNext", "DOM"],
+        "paths": {
+            "@web/*": ["web/src/*"],
+            "@api/*": ["api/src/*"]
+        }
     }
 }

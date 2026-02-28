@@ -1,13 +1,13 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue'
 import TodoItem from './TodoItem.vue'
-import { getDateDayMonth } from '@/utils/getters'
-import BaseHeading from '@/components/BaseHeading.vue'
-import BaseToggle from '@/components/BaseToggle.vue'
+import { getDateDayMonth } from '@web//utils/getters'
+import BaseHeading from '@web//components/BaseHeading.vue'
+import BaseToggle from '@web//components/BaseToggle.vue'
 import { useTodoListStore } from '../store/todolist.store'
 import { storeToRefs } from 'pinia'
-import BaseButton from '@/components/BaseButton.vue'
-import BaseBurger from '@/components/BaseBurger.vue'
+import BaseButton from '@web//components/BaseButton.vue'
+import BaseBurger from '@web//components/BaseBurger.vue'
 
 const store = useTodoListStore()
 const { filteredTodos, hideDone } = storeToRefs(store)

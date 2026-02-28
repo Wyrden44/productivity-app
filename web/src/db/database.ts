@@ -1,5 +1,5 @@
-import type { ActivityDB } from '@/features/timetable/types/activity.db-model'
-import type { TodoDB } from '@/features/todos/types/todo.db-model'
+import type { ActivityDB } from '@web//features/timetable/types/activity.db-model'
+import type { TodoDB } from '@web//features/todos/types/todo.db-model'
 import Dexie, { type EntityTable } from 'dexie'
 
 export const db = new Dexie('app') as Dexie & {

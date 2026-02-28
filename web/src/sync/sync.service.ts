@@ -1,5 +1,5 @@
-import { syncActivities } from '@/features/timetable/sync/timetableSync'
-import { syncTodos } from '@/features/todos/sync/todoSync'
+import { syncActivities } from '@web//features/timetable/sync/timetableSync'
+import { syncTodos } from '@web//features/todos/sync/todoSync'
 
 export async function syncAllUnsynced() {
     return Promise.all([syncTodos(), syncActivities()])

@@ -4,5 +4,12 @@
     "projectType": "application",
     "sourceRoot": "web/src",
     "// targets": "to see all targets run: nx show project web --web",
-    "targets": {}
+    "targets": {
+        "type-check": {
+            "executor": "nx:run-commands",
+            "options": {
+                "command": "vue-tsc -p web/tsconfig.app.json --noEmit"
+            }
+        }
+    }
 }

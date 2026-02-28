@@ -1,4 +1,4 @@
-import { db } from '@/db/database'
+import { db } from '@web//db/database'
 import type { Activity } from './types/activity.model'
 import type { ActivityDB } from './types/activity.db-model'
 import type { TimetableRepository } from './types/timetable.repository.model'

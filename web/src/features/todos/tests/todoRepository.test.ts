@@ -1,6 +1,6 @@
 import { describe, it, expect, beforeEach } from 'vitest'
 import 'fake-indexeddb/auto'
-import { db } from '@/db/database'
+import { db } from '@web//db/database'
 import { todoRepository, toDomain } from '../todoRepository'
 import type { TodoDB } from '../types/todo.db-model'
 

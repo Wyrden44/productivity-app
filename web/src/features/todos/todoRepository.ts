@@ -1,4 +1,4 @@
-import { db } from '@/db/database'
+import { db } from '@web//db/database'
 import type { TodoDB } from './types/todo.db-model'
 import type { Todo } from './types/todo.model'
 import type { TodoRepository } from './types/todo.repository.model'

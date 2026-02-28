@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import BaseButton from '@/components/BaseButton.vue'
-import BaseInput from '@/components/BaseInput.vue'
-import TimetableItem from '@/features/timetable/components/TimetableItem.vue'
-import TodoList from '@/features/todos/components/TodoList.vue'
-import { useTodoListStore } from '@/features/todos/store/todolist.store'
+import BaseButton from '@web//components/BaseButton.vue'
+import BaseInput from '@web//components/BaseInput.vue'
+import TimetableItem from '@web//features/timetable/components/TimetableItem.vue'
+import TodoList from '@web//features/todos/components/TodoList.vue'
+import { useTodoListStore } from '@web//features/todos/store/todolist.store'
 import { storeToRefs } from 'pinia'
 import { onMounted } from 'vue'
 

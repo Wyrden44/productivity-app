@@ -1,6 +1,6 @@
 import { describe, it, expect, beforeEach } from 'vitest'
 import 'fake-indexeddb/auto'
-import { db } from '@/db/database'
+import { db } from '@web//db/database'
 import type { ActivityDB } from './types/activity.db-model'
 import { timetableRepository, toDomain } from './timetableRepository'
 

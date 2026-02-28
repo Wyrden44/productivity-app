@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia'
 import type { Activity } from '../types/activity.model'
-import { isValidActivity, isValidFocus, isValidTime } from '@/utils/validator'
+import { isValidActivity, isValidFocus, isValidTime } from '@web//utils/validator'
 import { timetableRepository } from '../timetableRepository'
 
 export const useTimetableStore = defineStore('timetable', {

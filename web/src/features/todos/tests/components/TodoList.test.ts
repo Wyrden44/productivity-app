@@ -1,6 +1,6 @@
 import { describe, it, expect, beforeEach, vi } from 'vitest'
-import { mount } from '@vue/test-utils'
-import { createTestingPinia } from '@pinia/testing'
+import { mount } from '@web/vue/test-utils'
+import { createTestingPinia } from '@web/pinia/testing'
 import TodoList from '../../components/TodoList.vue'
 import { useTodoListStore } from '../../store/todolist.store'
 import TodoItem from '../../components/TodoItem.vue'

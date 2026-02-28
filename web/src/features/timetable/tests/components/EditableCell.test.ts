@@ -1,5 +1,5 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest'
-import { mount } from '@vue/test-utils'
+import { mount } from '@web/vue/test-utils'
 import EditableCell from '../../components/EditableCell.vue'
 
 function mountComponent(resetOnInvalidate = true) {

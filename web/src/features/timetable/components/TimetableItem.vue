@@ -1,10 +1,10 @@
 <script setup lang="ts">
 import { onMounted } from 'vue'
 import { useTimetableStore } from '../store/timetable.store'
-import BaseTableCell from '@/components/BaseTableCell.vue'
+import BaseTableCell from '@web/components/BaseTableCell.vue'
 import type { Activity } from '../types/activity.model'
 import EditableCell from './EditableCell.vue'
-import { isValidActivity, isValidFocus, isValidTime } from '@/utils/validator'
+import { isValidActivity, isValidFocus, isValidTime } from '@web/utils/validator'
 import { ref, nextTick } from 'vue'
 
 const store = useTimetableStore()

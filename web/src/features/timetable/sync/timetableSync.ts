@@ -1,4 +1,4 @@
-import { db } from '@/db/database'
+import { db } from '@web//db/database'
 
 export async function syncActivities() {
     const unsyncedActivities = await db.activities.where('synced').equals(0).toArray()

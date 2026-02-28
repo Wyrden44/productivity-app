@@ -1,6 +1,6 @@
 <script setup lang="ts" generic="T">
 import { ref, watch, computed } from 'vue'
-import BaseTableCell from '@/components/BaseTableCell.vue'
+import BaseTableCell from '@web//components/BaseTableCell.vue'
 
 const props = withDefaults(
     defineProps<{
