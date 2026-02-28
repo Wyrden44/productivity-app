@@ -1,4 +1,5 @@
 import { fileURLToPath, URL } from 'node:url'
+import path from 'node:path'
 
 import { defineConfig } from 'vitest/config'
 import vue from '@vitejs/plugin-vue'
@@ -8,6 +9,7 @@ import { VitePWA } from 'vite-plugin-pwa'
 
 // https://vite.dev/config/
 export default defineConfig({
+    root: __dirname,
     plugins: [
         vue(),
         vueDevTools(),
@@ -18,7 +20,7 @@ export default defineConfig({
     ],
     resolve: {
         alias: {
-            '@': fileURLToPath(new URL('./src', import.meta.url)),
+            '@web': path.resolve(__dirname, './src'),
         },
     },
     test: {
