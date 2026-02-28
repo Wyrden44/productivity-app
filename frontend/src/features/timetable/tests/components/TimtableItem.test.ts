@@ -3,7 +3,7 @@ import { createTestingPinia } from '@pinia/testing'
 import { useTimetableStore } from '../../store/timetable.store'
 import TimetableItem from '../../components/TimetableItem.vue'
 import { nextTick } from 'vue'
-import { describe, it, expect, vi, beforeEach } from 'vitest'
+import { describe, it, expect, vi } from 'vitest'
 
 function mountComponent() {
     return mount(TimetableItem, {
@@ -23,7 +23,6 @@ function mountComponent() {
 
 describe('TimetableItem', () => {
     it('calls store.load on mount', () => {
-        const wrapper = mountComponent()
         const store = useTimetableStore()
 
         expect(store.load).toHaveBeenCalled()
