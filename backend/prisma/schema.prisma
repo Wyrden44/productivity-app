@@ -5,8 +5,7 @@
 // Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
 
 generator client {
-  provider = "prisma-client"
-  output   = "../src/generated/prisma"
+  provider = "prisma-client-js"
 }
 
 datasource db {
@@ -19,4 +18,32 @@ model User {
   hashedPassword  String
   createdAt       DateTime  @default(now())
   updatedAt       DateTime  @default(now())
+}
+
+model Todo {
+  id        String   @id
+  userId    String
+  text      String
+  done      Boolean
+  deleted   Boolean  @default(false)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime
+
+  @@index([userId, updatedAt])
+}
+
+model Activity {
+  id        String   @id
+  userId    String
+  startTime String
+  endTime   String
+  activity  String
+  focus     String
+  deleted   Boolean  @default(false)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime
+
+  @@index([userId, updatedAt])
 }
