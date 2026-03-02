@@ -1,5 +1,5 @@
 import { expect, it, describe } from 'vitest'
-import { isValidActivity, isValidFocus, isValidTime } from './validator'
+import { isValidActivity, isValidFocus, isValidTime, isValidTodo } from './validator'
 
 describe('Time Validator', () => {
     it('identifies 14:00 as valid', () => {
@@ -83,6 +83,28 @@ describe('Focus Validator', () => {
 describe('Activity Validator', () => {
     it('identifies empty string as valid', () => {
         expect(isValidActivity('')).toBe(true)
+    })
+
+    it('identifies 50 characters as valid', () => {
+        expect(isValidActivity('a'.repeat(50))).toBe(true)
+    })
+
+    it('identifies normal text as valid', () => {
+        expect(isValidActivity('Reading')).toBe(true)
+    })
+
+    it('rejects 51 characters', () => {
+        expect(isValidActivity('a'.repeat(51))).toBe(false)
+    })
+
+    it('rejects 100 characters', () => {
+        expect(isValidActivity('a'.repeat(100))).toBe(false)
+    })
+})
+
+describe('Todo Validator', () => {
+    it('identifies empty string as invalid', () => {
+        expect(isValidTodo('')).toBe(false)
     })
 
     it('identifies 50 characters as valid', () => {

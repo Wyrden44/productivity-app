@@ -11,3 +11,7 @@ export function isValidFocus(focus: string) {
 export function isValidActivity(activity: string) {
     return activity.length <= 50
 }
+
+export function isValidTodo(text: string) {
+    return text.length <= 50 && text.length >= 1
+}
