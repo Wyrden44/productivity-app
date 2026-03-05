@@ -1,4 +1,4 @@
-import prisma from '@/lib/prisma'
+import { pullTodos } from '@/services/pull.service'
 import { pullSchema } from '@/validators/pull.schema'
 
 export async function POST(req: Request) {
@@ -15,19 +15,9 @@ export async function POST(req: Request) {
         return Response.json({ error: 'Invalid payload', details: parsed.error }, { status: 400 })
     }
 
-    const { lastSyncedAt } = parsed.data
+    const data = parsed.data
 
-    const todos = await prisma.todo.findMany({
-        where: {
-            userId,
-            updatedAt: {
-                gt: new Date(lastSyncedAt),
-            },
-        },
-        orderBy: {
-            updatedAt: 'asc',
-        },
-    })
+    const todos = await pullTodos(userId, data)
 
     return Response.json({
         todos,

@@ -5,7 +5,7 @@ export const todoSchema = z.object({
     text: z.string().min(1).max(50),
     done: z.boolean(),
     deleted: z.boolean(),
-    updatedAt: z.number().int().positive(),
+    updatedAt: z.number().int().nonnegative(),
 })
 
 export type TodoInput = z.infer<typeof todoSchema>

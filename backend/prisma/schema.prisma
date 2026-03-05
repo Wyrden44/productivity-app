@@ -18,11 +18,15 @@ model User {
   hashedPassword  String
   createdAt       DateTime  @default(now())
   updatedAt       DateTime  @default(now())
+
+  todos           Todo[]
+  activities      Activity[]
 }
 
 model Todo {
   id        String   @id
   userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
   text      String
   done      Boolean
   deleted   Boolean  @default(false)
@@ -36,6 +40,7 @@ model Todo {
 model Activity {
   id        String   @id
   userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
   startTime String
   endTime   String
   activity  String

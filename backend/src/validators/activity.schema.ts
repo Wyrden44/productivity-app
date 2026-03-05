@@ -9,7 +9,8 @@ export const activitySchema = z.object({
         const num = Number(val)
         return val !== '' && !isNaN(num) && num >= 0 && num <= 10
     }),
-    updatedAt: z.number().int().positive(),
+    deleted: z.boolean(),
+    updatedAt: z.number().int().nonnegative(),
 })
 
-export type TodoInput = z.infer<typeof activitySchema>
+export type ActivityInput = z.infer<typeof activitySchema>
