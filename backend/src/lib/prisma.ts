@@ -19,4 +19,6 @@ if (process.env.NODE_ENV !== 'production') {
     globalForPrisma.prisma = prisma
 }
 
+console.log('DB URL:', process.env.DATABASE_URL)
+
 export default prisma

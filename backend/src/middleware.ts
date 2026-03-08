@@ -1,36 +1,28 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { verifyToken, extractToken } from '@/lib/auth'
+import { getToken } from 'next-auth/jwt'
 
-export function middleware(req: NextRequest) {
+export async function middleware(req: NextRequest) {
+    const { pathname } = req.nextUrl
+
+    if (pathname.startsWith('/api/auth')) {
+        return NextResponse.next()
+    }
+
     if (req.nextUrl.pathname.startsWith('/api')) {
-        const authHeader = req.headers.get('authorization')
+        const token = await getToken({
+            req,
+            secret: process.env.NEXTAUTH_SECRET,
+        })
 
-        const token = extractToken(authHeader)
-
-        if (!token) {
+        if (!token?.sub) {
             return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
         }
 
-        const payload = verifyToken(token)
+        const response = NextResponse.next()
+        response.headers.set('x-user-id', token.sub)
 
-        if (!payload) {
-            return NextResponse.json({ error: 'Invalid token' }, { status: 401 })
-        }
-
-        // Attach userId to request headers
-        const requestHeaders = new Headers(req.headers)
-        requestHeaders.set('x-user-id', payload.userId)
-
-        return NextResponse.next({
-            request: {
-                headers: requestHeaders,
-            },
-        })
+        return response
     }
 
     return NextResponse.next()
-}
-
-export const config = {
-    matcher: '/api/:path*',
 }

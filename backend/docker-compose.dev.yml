@@ -9,8 +9,6 @@ services:
             POSTGRES_USER: ${POSTGRES_USER}
             POSTGRES_PASSWORD: ${DB_PASSWORD}
             POSTGRES_DB: ${POSTGRES_DB}
-            CHOKIDAR_USEPOLLING: 'true'
-            WATCHPACK_POLLING: 'true'
         volumes:
             - postgres_data_dev:/var/lib/postgresql/data
         healthcheck:
@@ -35,6 +33,7 @@ services:
         depends_on:
             db:
                 condition: service_healthy
+        command: sh -c "npx prisma db push && npm run dev"
 
 volumes:
     postgres_data_dev:

@@ -1,19 +1,11 @@
-import jwt from 'jsonwebtoken'
+import bcrypt from 'bcryptjs'
 
-export interface AuthPayload {
-    userId: string
+// not tests for this file - add tests if you modify with own logic
+
+export async function hashPassword(password: string) {
+    return bcrypt.hash(password, 12)
 }
 
-export function verifyToken(token: string): AuthPayload | null {
-    try {
-        return jwt.verify(token, process.env.JWT_SECRET!) as AuthPayload
-    } catch {
-        return null
-    }
-}
-
-export function extractToken(authHeader: string | null) {
-    if (!authHeader) return null
-    if (!authHeader.startsWith('Bearer ')) return null
-    return authHeader.split(' ')[1]
+export async function verifyPassword(password: string, hash: string) {
+    return bcrypt.compare(password, hash)
 }
