@@ -7,6 +7,7 @@
         "build": "next build",
         "start": "next start",
         "lint": "eslint",
+        "type-check": "",
         "test:db:up": "docker compose -f docker-compose.test.yml --env-file .env.test up -d --wait",
         "test:db:down": "docker compose -f docker-compose.test.yml down -v",
         "test:migrate": "dotenv -e .env.test -- prisma migrate deploy",
