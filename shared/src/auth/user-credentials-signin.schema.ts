@@ -1,8 +1,8 @@
-import { z } from "zod";
+import { z } from 'zod'
 
 export const userCredentialsSignin = z.object({
-  email: z.email(),
-  password: z.string().min(1),
-});
+    email: z.email(),
+    password: z.string().min(1),
+})
 
-export type UserCredentialsSigninInput = z.infer<typeof userCredentialsSignin>;
+export type UserCredentialsSigninInput = z.infer<typeof userCredentialsSignin>
