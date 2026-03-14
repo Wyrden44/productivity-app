@@ -1,7 +1,7 @@
 import { hashPassword } from '@/lib/auth'
 import prisma from '@/lib/prisma'
 import { createUser } from '@/services/signup.service'
-import { UserCredentialsInput } from '@/validators/user-credentials.schema'
+import { UserCredentialsInput } from '@productivity/shared'
 import { describe, it, expect, beforeEach } from 'vitest'
 
 const testUser: UserCredentialsInput = {

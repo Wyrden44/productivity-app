@@ -1,6 +1,6 @@
 import prisma from '@/lib/prisma'
 import { upsertTodo } from '@/services/todo.service'
-import { TodoInput } from '@/validators/todo.schema'
+import { TodoInput } from '@productivity/shared'
 import { describe, it, expect, beforeEach } from 'vitest'
 
 describe('Todo Service', () => {

@@ -1,6 +1,6 @@
 import prisma from '@/lib/prisma'
 import { upsertActivity } from '@/services/activity.service'
-import { ActivityInput } from '@/validators/activity.schema'
+import { ActivityInput } from '@productivity/shared'
 import { describe, it, expect, beforeEach } from 'vitest'
 
 describe('activity Service', () => {
