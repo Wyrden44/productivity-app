@@ -1,8 +1,8 @@
 import prisma from '@/lib/prisma'
 import { pullActivities, pullTodos } from '@/services/pull.service'
-import { ActivityInput } from '@/validators/activity.schema'
-import { PullInput } from '@/validators/pull.schema'
-import { TodoInput } from '@/validators/todo.schema'
+import { ActivityInput } from '@productivity/shared'
+import { PullInput } from '@productivity/shared'
+import { TodoInput } from '@productivity/shared'
 import { describe, it, expect, beforeEach } from 'vitest'
 
 const testTodo: TodoInput = {
