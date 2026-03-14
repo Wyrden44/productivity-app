@@ -1,5 +1,5 @@
 import prisma from '@/lib/prisma'
-import { ActivityInput } from '@productivity/shared/src/activities/activity.schema'
+import { ActivityInput } from '@productivity/shared'
 
 export async function upsertActivity(userId: string, data: ActivityInput) {
     const existing = await prisma.activity.findUnique({

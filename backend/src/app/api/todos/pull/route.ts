@@ -1,5 +1,5 @@
 import { pullTodos } from '@/services/pull.service'
-import { pullSchema } from '@productivity/shared/src/pull/pull.schema'
+import { pullSchema } from '@productivity/shared'
 
 export async function POST(req: Request) {
     const userId = req.headers.get('x-user-id')

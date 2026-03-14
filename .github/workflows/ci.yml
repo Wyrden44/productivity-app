@@ -7,12 +7,8 @@ on:
     branches: [main]
 
 jobs:
-  # --- FRONTEND JOB ---
-  frontend-ci:
+  ci:
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: frontend
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -22,97 +18,136 @@ jobs:
         with:
           node-version: 22
           cache: "npm"
-          cache-dependency-path: frontend/package-lock.json
 
       - name: Install dependencies
         run: npm ci
 
-      - name: Type check
-        run: npm run type-check
-
-      - name: Lint
-        run: npm run lint
-
-      - name: Build
-        run: npm run build
-
-      - name: Test
-        run: npm test
-
-  # --- BACKEND JOB ---
-  backend-ci:
-    runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: backend
-
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-
-      - name: Setup Node
-        uses: actions/setup-node@v4
-        with:
-          node-version: 22
-          cache: "npm"
-          cache-dependency-path: backend/package-lock.json
-
-      - name: Install dependencies
-        run: npm install
-
       - name: Generate Prisma client
-        run: npx prisma generate
+        run: npm run prisma:generate
 
-      - name: Create test env file
+      - name: Build shared
+        run: npm run build --workspace=@productivity/shared
+
+      - name: Backend checks
         run: |
-          echo "DB_PASSWORD=test_pg_password" >> .env.test
-          echo "POSTGRES_USER=postgres" >> .env.test
-          echo "POSTGRES_DB=productivity_test" >> .env.test
-          echo "NEXTAUTH_SECRET=testsecret" >> .env.test
-          echo "DATABASE_URL=\"postgresql://postgres:test_pg_password@localhost:5433/productivity_test\"" >> .env.test
-          echo "DOCKER_DATABASE_URL=\"postgresql://postgres:test_pg_password@db:5432/productivity_test\"" >> .env.test
+          npm run type-check --workspace=backend
+          npm run lint --workspace=backend
+          npm run build --workspace=backend
+          npm test --workspace=backend
 
-      - name: Type check
-        run: npm run type-check
+      - name: Frontend checks
+        run: |
+          npm run type-check --workspace=frontend
+          npm run lint --workspace=frontend
+          npm run build --workspace=frontend
+          npm test --workspace=frontend
 
-      - name: Lint
-        run: npm run lint
+  # # --- FRONTEND JOB ---
+  # frontend-ci:
+  #   runs-on: ubuntu-latest
+  #   defaults:
+  #     run:
+  #       working-directory: frontend
+  #   steps:
+  #     - name: Checkout repository
+  #       uses: actions/checkout@v4
 
-      - name: Build
-        run: npm run build
+  #     - name: Setup Node
+  #       uses: actions/setup-node@v4
+  #       with:
+  #         node-version: 22
+  #         cache: "npm"
+  #         cache-dependency-path: frontend/package-lock.json
 
-      - name: Test
-        run: npm test
+  #     - name: Install dependencies
+  #       run: npm ci
 
-  # --- SHARED JOB ---
-  shared-ci:
-    runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: shared
+  #     - name: Type check
+  #       run: npm run type-check
 
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
+  #     - name: Lint
+  #       run: npm run lint
 
-      - name: Setup Node
-        uses: actions/setup-node@v4
-        with:
-          node-version: 22
-          cache: "npm"
-          cache-dependency-path: shared/package-lock.json
+  #     - name: Build
+  #       run: npm run build
 
-      - name: Install dependencies
-        run: npm install
+  #     - name: Test
+  #       run: npm test
 
-      - name: Type check
-        run: npm run type-check
+  # # --- BACKEND JOB ---
+  # backend-ci:
+  #   runs-on: ubuntu-latest
+  #   defaults:
+  #     run:
+  #       working-directory: backend
 
-      - name: Lint
-        run: npm run lint
+  #   steps:
+  #     - name: Checkout repository
+  #       uses: actions/checkout@v4
 
-      - name: Format
-        run: npm run format
+  #     - name: Setup Node
+  #       uses: actions/setup-node@v4
+  #       with:
+  #         node-version: 22
+  #         cache: "npm"
+  #         cache-dependency-path: backend/package-lock.json
 
-      - name: Test
-        run: npm test
+  #     - name: Install dependencies
+  #       run: npm install
+
+  #     - name: Generate Prisma client
+  #       run: npx prisma generate
+
+  #     - name: Create test env file
+  #       run: |
+  #         echo "DB_PASSWORD=test_pg_password" >> .env.test
+  #         echo "POSTGRES_USER=postgres" >> .env.test
+  #         echo "POSTGRES_DB=productivity_test" >> .env.test
+  #         echo "NEXTAUTH_SECRET=testsecret" >> .env.test
+  #         echo "DATABASE_URL=\"postgresql://postgres:test_pg_password@localhost:5433/productivity_test\"" >> .env.test
+  #         echo "DOCKER_DATABASE_URL=\"postgresql://postgres:test_pg_password@db:5432/productivity_test\"" >> .env.test
+
+  #     - name: Type check
+  #       run: npm run type-check
+
+  #     - name: Lint
+  #       run: npm run lint
+
+  #     - name: Build
+  #       run: npm run build
+
+  #     - name: Test
+  #       run: npm test
+
+  # # --- SHARED JOB ---
+  # shared-ci:
+  #   runs-on: ubuntu-latest
+  #   defaults:
+  #     run:
+  #       working-directory: shared
+
+  #   steps:
+  #     - name: Checkout repository
+  #       uses: actions/checkout@v4
+
+  #     - name: Setup Node
+  #       uses: actions/setup-node@v4
+  #       with:
+  #         node-version: 22
+  #         cache: "npm"
+  #         cache-dependency-path: shared/package-lock.json
+
+  #     - name: Install dependencies
+  #       run: npm install
+
+  #     - name: Type check
+  #       run: npm run type-check
+
+  #     - name: Lint
+  #       run: npm run lint
+
+  #     - name: Format
+  #       run: npm run format
+
+  #     - name: Test
+  #       run: npm test

@@ -1,5 +1,5 @@
 import prisma from '@/lib/prisma'
-import { TodoInput } from '@productivity/shared/src/todos/todo.schema'
+import { TodoInput } from '@productivity/shared'
 
 export async function upsertTodo(userId: string, data: TodoInput) {
     const existing = await prisma.todo.findUnique({

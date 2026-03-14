@@ -2,7 +2,7 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest'
 import { POST } from '@/app/api/auth/signup/route'
 import { createUser } from '@/services/signup.service'
-import { UserCredentialsInput } from '@productivity/shared/src/auth/user-credentials.schema'
+import { UserCredentialsInput } from '@productivity/shared'
 
 vi.mock('@/services/signup.service', () => ({
     createUser: vi.fn(),

@@ -1,7 +1,7 @@
 import { describe, it, expect, vi } from 'vitest'
 import { POST } from '@/app/api/todos/upsert/route'
 import * as service from '@/services/todo.service'
-import { TodoInput } from '@productivity/shared/src/todos/todo.schema'
+import { TodoInput } from '@productivity/shared'
 
 vi.mock('@/services/todo.service')
 

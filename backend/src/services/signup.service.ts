@@ -1,6 +1,6 @@
 import { hashPassword } from '@/lib/auth'
 import prisma from '@/lib/prisma'
-import { UserCredentialsInput } from '@productivity/shared/src/auth/user-credentials.schema'
+import { UserCredentialsInput } from '@productivity/shared'
 
 export async function createUser(data: UserCredentialsInput) {
     const existing = await prisma.user.findUnique({
