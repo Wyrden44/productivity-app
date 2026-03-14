@@ -11,7 +11,7 @@ vi.mock('../../timetableRepository', () => ({
     },
 }))
 
-vi.mock('@/utils/validator', () => ({
+vi.mock('@productivity/shared/src/utils/validator', () => ({
     isValidTime: vi.fn(() => true),
     isValidFocus: vi.fn(() => true),
     isValidActivity: vi.fn(() => true),
