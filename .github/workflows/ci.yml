@@ -63,6 +63,15 @@ jobs:
       - name: Generate Prisma client
         run: npx prisma generate
 
+      - name: Create test env file
+        run: |
+          echo "DB_PASSWORD=test_pg_password" >> .env.test
+          echo "POSTGRES_USER=postgres" >> .env.test
+          echo "POSTGRES_DB=productivity_test" >> .env.test
+          echo "NEXTAUTH_SECRET=testsecret" >> .env.test
+          echo "DATABASE_URL=\"postgresql://postgres:test_pg_password@localhost:5433/productivity_test\"" >> .env.test
+          echo "DOCKER_DATABASE_URL=\"postgresql://postgres:test_pg_password@db:5432/productivity_test\"" >> .env.test
+
       - name: Type check
         run: npm run type-check
 
