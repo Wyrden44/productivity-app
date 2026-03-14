@@ -40,31 +40,46 @@ jobs:
         run: npm test
 
   # --- BACKEND JOB ---
-  # backend-ci:
-  #   runs-on: ubuntu-latest
-  #   defaults:
-  #     run:
-  #       working-directory: backend
-  #   steps:
-  #     - name: Checkout repository
-  #       uses: actions/checkout@v4
+  backend-ci:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: backend
 
-  #     - name: Setup Node
-  #       uses: actions/setup-node@v4
-  #       with:
-  #         node-version: 22
-  #         cache: "npm"
-  #         cache-dependency-path: backend/package-lock.json
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
-  #     - name: Install dependencies
-  #       run: npm ci
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: "npm"
+          cache-dependency-path: backend/package-lock.json
 
-  #     # Note: Ensure these scripts exist in your backend/package.json
-  #     - name: Lint
-  #       run: npm run lint || echo "No lint script found"
+      - name: Install dependencies
+        run: npm install
 
-  #     - name: Build
-  #       run: npm run build || echo "No build script found"
+      - name: Generate Prisma client
+        run: npx prisma generate
 
-  #     - name: Test
-  #       run: npm test || echo "No test script found"
+      - name: Create test env file
+        run: |
+          echo "DB_PASSWORD=test_pg_password" >> .env.test
+          echo "POSTGRES_USER=postgres" >> .env.test
+          echo "POSTGRES_DB=productivity_test" >> .env.test
+          echo "NEXTAUTH_SECRET=testsecret" >> .env.test
+          echo "DATABASE_URL=\"postgresql://postgres:test_pg_password@localhost:5433/productivity_test\"" >> .env.test
+          echo "DOCKER_DATABASE_URL=\"postgresql://postgres:test_pg_password@db:5432/productivity_test\"" >> .env.test
+
+      - name: Type check
+        run: npm run type-check
+
+      - name: Lint
+        run: npm run lint
+
+      - name: Build
+        run: npm run build
+
+      - name: Test
+        run: npm test
