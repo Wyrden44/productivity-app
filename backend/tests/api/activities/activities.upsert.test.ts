@@ -1,11 +1,12 @@
 import { describe, it, expect, vi } from 'vitest'
 import { POST } from '@/app/api/activities/upsert/route'
 import * as service from '@/services/activity.service'
+import { ActivityInput } from '@productivity/shared/src/activities/activity.schema'
 
 vi.mock('@/services/activity.service')
 
 describe('POST /api/activities/upsert', () => {
-    const validBody = {
+    const validBody: ActivityInput = {
         id: crypto.randomUUID(),
         activity: 'Test',
         startTime: '09:30',

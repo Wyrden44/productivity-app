@@ -1,5 +1,5 @@
 import { signIn } from '@/auth'
-import { userCredentialsSignin } from '@/validators/user-credentials-signin.schema'
+import { userCredentialsSignin } from '@productivity/shared/src/auth/user-credentials-signin.schema'
 
 export const runtime = 'nodejs'
 

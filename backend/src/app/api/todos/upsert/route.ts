@@ -1,5 +1,5 @@
 import { upsertTodo } from '@/services/todo.service'
-import { todoSchema } from '@/validators/todo.schema'
+import { todoSchema } from '@productivity/shared/src/todos/todo.schema'
 
 export async function POST(req: Request) {
     const userId = req.headers.get('x-user-id')

@@ -1,0 +1,18 @@
+{
+  "name": "@productivity/shared",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.ts",
+  "scripts": {
+    "test": "vitest"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "dependencies": {
+    "vite-tsconfig-paths": "^6.1.1",
+    "vitest": "^4.1.0",
+    "zod": "^4.3.6"
+  }
+}

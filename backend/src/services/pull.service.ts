@@ -1,5 +1,5 @@
 import prisma from '@/lib/prisma'
-import { PullInput } from '@/validators/pull.schema'
+import { PullInput } from '@productivity/shared/src/pull/pull.schema'
 
 export async function pullTodos(userId: string, data: PullInput) {
     const todos = await prisma.todo.findMany({

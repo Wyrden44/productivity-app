@@ -1,14 +1,12 @@
 import { describe, it, expect, vi } from 'vitest'
 import { POST } from '@/app/api/todos/pull/route'
 import * as service from '@/services/pull.service'
-import { PullInput } from '@/validators/pull.schema'
+import { PullInput } from '@productivity/shared/src/pull/pull.schema'
 
 vi.mock('@/services/pull.service')
 
 describe('POST /api/todos/pull', () => {
-    const validBody: PullInput = {
-        lastSyncedAt: 1000,
-    }
+    const validBody: PullInput = { lastSyncedAt: 1000 }
 
     it('returns 401 if x-user-id missing', async () => {
         const req = new Request('http://localhost', {

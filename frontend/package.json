@@ -17,7 +17,9 @@
         "test:watch": "vitest --watch"
     },
     "dependencies": {
+        "@productivity/shared": "file:../shared",
         "@tailwindcss/vite": "^4.1.18",
+        "axios": "^1.13.6",
         "dexie": "^4.3.0",
         "pinia": "^3.0.4",
         "vite-plugin-pwa": "^1.2.0",

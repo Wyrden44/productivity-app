@@ -1,5 +1,5 @@
 import { upsertActivity } from '@/services/activity.service'
-import { activitySchema } from '@/validators/activity.schema'
+import { activitySchema } from '@productivity/shared/src/activities/activity.schema'
 
 export async function POST(req: Request) {
     const userId = req.headers.get('x-user-id')
