@@ -1,7 +1,7 @@
 import { describe, it, expect, vi } from 'vitest'
 import { POST } from '@/app/api/activities/pull/route'
 import * as service from '@/services/pull.service'
-import { PullInput } from '@/validators/pull.schema'
+import { PullInput } from '@productivity/shared'
 
 vi.mock('@/services/pull.service')
 

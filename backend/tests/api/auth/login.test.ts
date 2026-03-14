@@ -2,6 +2,7 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest'
 import { POST } from '@/app/api/auth/login/route'
 import { signIn } from '@/auth'
+import { UserCredentialsSigninInput } from '@productivity/shared'
 
 vi.mock('@/auth', () => ({
     signIn: vi.fn(),
@@ -34,7 +35,7 @@ describe('POST /api/auth/login', () => {
         const req = createRequest({
             email: 'test@test.com',
             password: 'password123',
-        })
+        } as UserCredentialsSigninInput)
 
         const res = await POST(req)
 
@@ -52,7 +53,7 @@ describe('POST /api/auth/login', () => {
         const req = createRequest({
             email: 'test@test.com',
             password: 'password123',
-        })
+        } as UserCredentialsSigninInput)
 
         const res = await POST(req)
 

@@ -1,11 +1,12 @@
 import { describe, it, expect, vi } from 'vitest'
 import { POST } from '@/app/api/todos/upsert/route'
 import * as service from '@/services/todo.service'
+import { TodoInput } from '@productivity/shared'
 
 vi.mock('@/services/todo.service')
 
 describe('POST /api/todos/upsert', () => {
-    const validBody = {
+    const validBody: TodoInput = {
         id: crypto.randomUUID(),
         text: 'Test',
         done: false,

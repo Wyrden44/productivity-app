@@ -4,7 +4,7 @@ import BaseInput from '@/components/BaseInput.vue'
 import TimetableItem from '@/features/timetable/components/TimetableItem.vue'
 import TodoList from '@/features/todos/components/TodoList.vue'
 import { useTodoListStore } from '@/features/todos/store/todolist.store'
-import { isValidTodo } from '@/utils/validator'
+import { isValidTodo } from '@productivity/shared/src/utils/validator'
 import { storeToRefs } from 'pinia'
 import { computed, onMounted } from 'vue'
 

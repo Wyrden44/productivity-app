@@ -1,5 +1,5 @@
 import { createUser } from '@/services/signup.service'
-import { userCredentials } from '@/validators/user-credentials.schema'
+import { userCredentials } from '@productivity/shared'
 
 export const runtime = 'nodejs'
 

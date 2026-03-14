@@ -2,6 +2,7 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest'
 import { POST } from '@/app/api/auth/signup/route'
 import { createUser } from '@/services/signup.service'
+import { UserCredentialsInput } from '@productivity/shared'
 
 vi.mock('@/services/signup.service', () => ({
     createUser: vi.fn(),
@@ -13,6 +14,11 @@ function createRequest(body: any) {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(body),
     })
+}
+
+const validBody: UserCredentialsInput = {
+    email: 'test@test.com',
+    password: 'Password123!',
 }
 
 describe('POST /api/auth/signup', () => {
@@ -31,10 +37,7 @@ describe('POST /api/auth/signup', () => {
     it('returns id if user created', async () => {
         ;(createUser as any).mockResolvedValue('user1')
 
-        const req = createRequest({
-            email: 'test@test.com',
-            password: 'Password123!',
-        })
+        const req = createRequest(validBody)
 
         const res = await POST(req)
         const json = await res.json()
@@ -47,10 +50,7 @@ describe('POST /api/auth/signup', () => {
     it('returns 500 if service fails', async () => {
         ;(createUser as any).mockResolvedValue(null)
 
-        const req = createRequest({
-            email: 'test@test.com',
-            password: 'Password123!',
-        })
+        const req = createRequest(validBody)
 
         const res = await POST(req)
 
