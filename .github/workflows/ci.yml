@@ -28,6 +28,17 @@ jobs:
       - name: Build shared
         run: npm run build --workspace=@productivity/shared
 
+      - name: Create backend test env file
+        run: |
+          cat <<'EOF' > backend/.env.test
+          DB_PASSWORD=test_pg_password
+          POSTGRES_USER=postgres
+          POSTGRES_DB=productivity_test
+          NEXTAUTH_SECRET=testsecret
+          DATABASE_URL=postgresql://postgres:test_pg_password@localhost:5433/productivity_test
+          DOCKER_DATABASE_URL=postgresql://postgres:test_pg_password@db:5432/productivity_test
+          EOF
+
       - name: Backend checks
         run: |
           npm run type-check --workspace=backend
